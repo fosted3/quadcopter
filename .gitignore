@@ -15,3 +15,7 @@
 *.out
 *.bin
 *.elf
+
+# Other
+*.d
+*.ld
