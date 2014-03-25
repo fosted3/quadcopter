@@ -9,7 +9,7 @@ PROJ_NAME=adc_test
 PART=TM4C123GH6PM
 
 # Location of the TivaWare root directory
-TIVAWARE_LIB = /home/dan/tilib
+TIVAWARE_LIB = $(HOME)/tilib
 
 # put your *.o targets here, make should handle the rest!
 #SRCS = $(PROJ_NAME).c $(TIVAWARE_LIB)/examples/boards/ek-tm4c123gxl/hello/startup_gcc.c
@@ -44,7 +44,7 @@ gcc/$(PROJ_NAME).axf: gcc/$(PROJ_NAME).ld
 
 SCATTERgcc_$(PROJ_NAME)=gcc/$(PROJ_NAME).ld
 ENTRY_$(PROJ_NAME)=ResetISR
-CFLAGSgcc=-DTARGET_IS_TM4C123_RB1
+CFLAGSgcc=-DTARGET_IS_TM4C123_RB1 -g
 
 ifneq (${MAKECMDGOALS},clean)
 -include ${wildcard gcc/*.d} __dummy__
