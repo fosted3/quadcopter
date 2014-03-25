@@ -1,2 +1,13 @@
 http://software-dl.ti.com/download/tiva-c/SVJFFCU6UYZGDDQYUPPJW3RW6B7MA8PU/SW-TM4C-2.1.0.12573.exe
 
+start openOCD:
+  # openocf -f openocd.cfg
+start gdb:
+  arm-none-eabi-gdb
+  (gdb) target remote :3333
+  (gdb) monitor reset halt
+  (gdb) file $filename
+  (gdb) load
+  (gdb) monitor reset init
+  (gdb) c
+  ctrl-c breaks back into gdb's console, break :$linenum to set a breakpoint. 
