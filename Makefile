@@ -3,7 +3,7 @@
 
 
 # all the files will be generated with this name (main.elf, main.bin, main.hex, etc)
-PROJ_NAME=main
+PROJ_NAME=adc_test
 
 #Part Declaration
 PART=TM4C123GH6PM
@@ -51,8 +51,8 @@ ifneq (${MAKECMDGOALS},clean)
 endif
 
 program: gcc/$(PROJ_NAME).bin 
-	openocd --file /usr/share/openocd/scripts/board/ek-lm4f120xl.cfg -f extra/tiva-launchpad.cfg -c "tiva_flash `basename $(CURID)`gcc/$(PROJ_NAME).bin" -c shutdown
-
+	#openocd --file /usr/share/openocd/scripts/board/ek-lm4f120xl.cfg -f extra/tiva-launchpad.cfg -c "tiva_flash `basename $(CURID)`gcc/$(PROJ_NAME).bin" -c shutdown
+	sudo lm4flash -v "gcc/$(PROJ_NAME).bin"
 clean:
 	@rm -vf gcc/*
 	@rmdir -v gcc
