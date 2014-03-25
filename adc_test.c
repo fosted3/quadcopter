@@ -46,18 +46,19 @@ void init(void)
 
 uint32_t adc_sample(void)
 {
-	uint32_t rv[1];
+	uint32_t val[1];
 	ADCProcessorTrigger(ADC0_BASE, 3);
 	while(!ADCIntStatus(ADC0_BASE, 3, false))
 	{
 	}
 	ADCIntClear(ADC0_BASE, 3);
-	ADCSequenceDataGet(ADC0_BASE, 3, rv);
-	return rv[0];
+	ADCSequenceDataGet(ADC0_BASE, 3, val);
+	return val[0];
 }
 
 uint32_t read_channel(uint32_t chan)
 {
+	uint32_t val;
 	// S2 S1 S0
 	// A7 F0 A6
 	// port a
@@ -67,7 +68,8 @@ uint32_t read_channel(uint32_t chan)
 	GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_6 | GPIO_PIN_7, ((chan | 0x01) << 6) | ((chan | 0x02) << 5));
 	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, (chan | 0x04) >> 1);
 	SysCtlDelay(50); //stabilize that shit
-		
+	val = adc_sample();
+	return val;
 }
 
 int main(void)

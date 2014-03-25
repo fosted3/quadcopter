@@ -3,7 +3,7 @@
 
 
 # all the files will be generated with this name (main.elf, main.bin, main.hex, etc)
-PROJ_NAME=adc_test
+PROJ_NAME=blink
 
 #Part Declaration
 PART=TM4C123GH6PM
