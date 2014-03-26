@@ -9,16 +9,16 @@ PROJ_NAME=blink
 PART=TM4C123GH6PM
 
 # Location of the TivaWare root directory
-TIVAWARE_LIB = $(HOME)/tilib
+TIVAWARE_LIB = $(HOME)/toolchains/tilib
 
 # put your *.o targets here, make should handle the rest!
 #SRCS = $(PROJ_NAME).c $(TIVAWARE_LIB)/examples/boards/ek-tm4c123gxl/hello/startup_gcc.c
 
 # location of OpenOCD Board .cfg files (only used with 'make program')
-OPENOCD_BOARD_DIR=/usr/share/openocd/scripts/board
+OPENOCD_BOARD_DIR=./
 
 # Configuration (cfg) file containing programming directives for OpenOCD
-OPENOCD_PROC_FILE=extra/stm32f0-openocd.cfg
+OPENOCD_PROC_FILE=openocd.cfg
 
 # that's it, no need to change anything below this line!
 
