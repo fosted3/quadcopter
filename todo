@@ -1,0 +1,15 @@
+chassis:
+	add landing struts
+	add lights
+	add prox sensors (landing?)
+
+HW:
+	GPS pinout is reversed. fix that
+	OE is active high for level shifter, active low for 74hc4051. add another OE for one of these
+	break out enable pin on 5v buck converter
+	c21 and c22 touch. increase spacing
+	same with c30 and c43
+	add additional i2c / spi headers for external sensors
+
+SW:
+	everything
