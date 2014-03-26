@@ -62,8 +62,8 @@ void init(void)
 	//Enable pin outputs
 	PWMOutputState(PWM0_BASE, (PWM_OUT_0_BIT | PWM_OUT_1_BIT | PWM_OUT_6_BIT | PWM_OUT_7_BIT), true);
 
-	//Bring OE line low (enables output from level shifter)
-	GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_0, 0x00);
+	//Bring OE line high (enables output from level shifter)
+	GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_0, 0xFF);
 	
 }
 
