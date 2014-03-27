@@ -3,7 +3,7 @@
 
 
 # all the files will be generated with this name (main.elf, main.bin, main.hex, etc)
-PROJ_NAME=throttle
+PROJ_NAME=main
 
 #Part Declaration
 PART=TM4C123GH6PM
@@ -12,7 +12,7 @@ PART=TM4C123GH6PM
 TIVAWARE_LIB = $(HOME)/toolchains/tilib
 
 # put your *.o targets here, make should handle the rest!
-#SRCS = $(PROJ_NAME).c $(TIVAWARE_LIB)/examples/boards/ek-tm4c123gxl/hello/startup_gcc.c
+#SRCS = $(PROJ_NAME).c i2c.c $(TIVAWARE_LIB)/examples/boards/ek-tm4c123gxl/hello/startup_gcc.c
 
 # location of OpenOCD Board .cfg files (only used with 'make program')
 OPENOCD_BOARD_DIR=./
@@ -37,6 +37,7 @@ IPATH=$(TIVAWARE_LIB)/
 all: gcc/$(PROJ_NAME).axf
 
 gcc/$(PROJ_NAME).axf: gcc/$(PROJ_NAME).o
+gcc/$(PROJ_NAME).axf: gcc/i2c.o
 gcc/$(PROJ_NAME).axf: gcc/startup_gcc.o
 gcc/$(PROJ_NAME).axf: gcc/uartstdio.o
 gcc/$(PROJ_NAME).axf: $(TIVAWARE_LIB)/driverlib/gcc/libdriver.a
