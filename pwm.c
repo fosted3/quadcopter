@@ -1,11 +1,3 @@
-//******************************************************************************
-// This program calibrates the ESCs. ESCs should be flashed with SimonK
-// firmware. Throttle is calibrated to 1060us stop, 1860us full throttle, as
-// described in https://github.com/sim-/tgy/.
-// ESCs are attached to PB6 (PWM 0), PB7 (PWM1), PC4 (PWM6), and PC5 (PWM7).
-// OE for the level shifter is active low, and attached to PA0.
-//******************************************************************************
-
 #include <stdbool.h>
 #include <stdint.h>
 #include "inc/hw_memmap.h"
@@ -14,18 +6,13 @@
 #include "driverlib/pwm.h"
 #include "driverlib/sysctl.h"
 
-void init(void)
+void init_pwm(void)
 {
-	//Set system clock to 80MHz
-	SysCtlClockSet(SYSCTL_SYSDIV_2_5 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);
-
 	//Set PWM clock source to 10MHz
 	SysCtlPWMClockSet(SYSCTL_PWMDIV_8);
 
 	//Enable PWM0, port B, and port C
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM0);
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
 
 	//Setup pin multiplexer
 	GPIOPinConfigure(GPIO_PB6_M0PWM0);
@@ -59,15 +46,29 @@ void init(void)
 	PWMOutputState(PWM0_BASE, (PWM_OUT_0_BIT | PWM_OUT_1_BIT | PWM_OUT_6_BIT | PWM_OUT_7_BIT), true);
 }
 
-int main(void)
+void clamp(uint16_t l, uint16_t *v, uint16_t h)
 {
-	init();
-	//Set PWM to maximum - 1860us high
-	PWMPulseWidthSet(PWM0_BASE, PWM_OUT_0, 18640);
-	PWMPulseWidthSet(PWM0_BASE, PWM_OUT_1, 18640);
-	PWMPulseWidthSet(PWM0_BASE, PWM_OUT_6, 18640);
-	PWMPulseWidthSet(PWM0_BASE, PWM_OUT_7, 18640);
-	while (1)
+	if (*v > h)
 	{
+		*v = h;
 	}
+	else if (*v < l)
+	{
+		*v = l;
+	}
+}
+
+void set_pwm(uint16_t m0, uint16_t m1, uint16_t m2, uint16_t m3)
+{
+	//Error checking
+	clamp(PWM_MIN, &m0, PWM_MAX);
+	clamp(PWM_MIN, &m1, PWM_MAX);
+	clamp(PWM_MIN, &m2, PWM_MAX);
+	clamp(PWM_MIN, &m3, PWM_MAX);
+	
+	//Set PWM
+	PWMPulseWidthSet(PWM0_BASE, PWM_OUT_0, m0);
+	PWMPulseWidthSet(PWM0_BASE, PWM_OUT_1, m1);
+	PWMPulseWidthSet(PWM0_BASE, PWM_OUT_6, m2);
+	PWMPulseWidthSet(PWM0_BASE, PWM_OUT_7, m3);
 }

@@ -6,6 +6,8 @@
 #include "driverlib/i2c.h"
 #include "driverlib/pin_map.h"
 #include "driverlib/sysctl.h"
+#include "mpu9150.h"
+#include "i2c.h"
 
 void mpu9150_write(uint8_t reg, uint8_t data)
 {

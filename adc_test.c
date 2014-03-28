@@ -74,4 +74,11 @@ uint32_t read_channel(uint32_t chan)
 
 int main(void)
 {
+	init();
+	uint32_t i;
+	uint32_t val[8];
+	for (i = 0; i < 7; i++)
+	{
+		val[i] = read_channel(i);
+	}
 }

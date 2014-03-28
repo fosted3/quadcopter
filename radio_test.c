@@ -26,16 +26,18 @@ void init(void)
 
 	//Configure pin multiplexing
 	GPIOPinConfigure(GPIO_PD0_SSI1CLK);
-	GPIOPinConfigure(GPIO_PD1_SSI1FSS);
+	//GPIOPinConfigure(GPIO_PD1_SSI1FSS); //Manually Control SS
 	GPIOPinConfigure(GPIO_PD2_SSI1RX);
 	GPIOPinConfigure(GPIO_PD3_SSI1TX);
 
-	//Set NRF_EN as output, NRF_IRQ as input
+	//Set NRF_EN as output, NRF_IRQ as input, SS as output
+	GPIOPinTypeGPIOOutput(GPIO_PORTD_BASE, GPIO_PIN_1);
 	GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_4);
 	GPIOPinTypeGPIOInput(GPIO_PORTE_BASE, GPIO_PIN_5);
 
 	//Configure port D for SSI
-	GPIOPinTypeSSI(GPIO_PORTD_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3);
+	//GPIOPinTypeSSI(GPIO_PORTD_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3);
+	GPIOPinTypeSSI(GPIO_PORTD_BASE, GPIO_PIN_0 | GPIO_PIN_2 | GPIO_PIN_3);
 
 	//Configure SSI settings (1MHz SCK, Polarity & Phase 0, 8 bits / frame
 	SSIConfigSetExpClk(SSI1_BASE, SysCtlClockGet(), SSI_FRF_MOTO_MODE_0, SSI_MODE_MASTER, 1000000, 8);

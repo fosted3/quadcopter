@@ -1,5 +1,5 @@
-#ifndef __NRF_DEFS_H__
-#define __NRF_DEFS_H__
+#ifndef nrf_defs_h_
+#define nrf_defs_h_
 
 #define CONFIG        0x00
 #define EN_AA         0x01

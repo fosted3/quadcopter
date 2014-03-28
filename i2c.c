@@ -17,8 +17,8 @@ void i2c_init(void)
 	GPIOPinConfigure(GPIO_PB2_I2C0SCL);
 	GPIOPinConfigure(GPIO_PB3_I2C0SDA);
 	GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_2 | GPIO_PIN_3);
-	//Set 400kHz fast mode
-	I2CMasterInitExpClk(I2C0_BASE, SysCtlClockGet(), true);
+	//Set 100kHz mode
+	I2CMasterInitExpClk(I2C0_BASE, SysCtlClockGet(), false);
 }
 
 void i2c_write(uint8_t addr, uint8_t reg, uint8_t data)
